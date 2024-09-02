@@ -1,0 +1,57 @@
+var answers = ["B", "B", "D", "C"]; // Holds the correct answers.
+tot = answers.length; // amount of questions.
+
+// Gets the value (A, B, C or D) from a specific question:
+function getCheckedValue(radioName) 
+{
+    var radios = document.getElementsByName(radioName);
+    for (var y = 0; y < radios.length; y++)
+    {
+        if (radios[y].checked) 
+        {
+            return radios[y].value;
+        }
+    }
+}
+
+// Gets score count, iterates through all questions using value from getCheckedValue
+function getScore() 
+{
+    var score = 0;
+    for (var i = 0; i < tot; i++)
+    {
+        if (getCheckedValue("question" + i) === answers[i])
+        {    
+            score += 1;
+        }
+    }
+    return score;
+}
+
+// Main function that implements previous two funcs to get the final score
+function returnScore() 
+{
+    document.getElementById("myresults").innerHTML =
+        "Your score is " + getScore() + "/" + tot;
+}
+
+// Checks the correct answers by iterating through all questions,
+// collecting the radio button that got selected for each
+// and comparing it to the questions coresponding value in the answers list
+function returnCorrect()
+{
+    currentQuestion = 0;
+    while (currentQuestion < tot)
+    {
+        var radio = document.getElementsByName("question" + currentQuestion)
+        for (var y = 0; y < 4; y++)
+        {
+           if (radio[y].value == answers[currentQuestion])
+           {
+                radio[y].checked = true;
+                break;
+           }
+        }
+        currentQuestion += 1;
+    }
+}
